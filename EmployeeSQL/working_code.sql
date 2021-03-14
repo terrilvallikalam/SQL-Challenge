@@ -18,7 +18,7 @@ ON n.emp_no = e.emp_no;
 -- List first name, last name, and sex for employees whose first name is "Hercules" and last names begin with "B."
 SELECT first_name, last_name, sex FROM "Employees" WHERE first_name = 'Hercules' AND last_name LIKE 'B%';
 
--- NEED TO FIX List all employees in the Sales department, including their employee number, last name, first name, and department name
+-- List all employees in the Sales department, including their employee number, last name, first name, and department name
 CREATE VIEW SalesView AS
 SELECT d.dept_name, e.dept_no, e.emp_no, s.last_name, s.first_name
 FROM "Departments" as d
@@ -29,8 +29,8 @@ ON s.emp_no = e.emp_no;
 
 SELECT * FROM SalesView WHERE dept_name = 'Sales';
 
--- NEED TO DO List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name
-
+-- List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name
+SELECT * FROM SalesView WHERE dept_name = 'Sales' OR dept_name = 'Development';
 
 -- In descending order, list the frequency count of employee last names, i.e., how many employees share each last name
 SELECT * FROM "Employees"
