@@ -7,22 +7,27 @@ e.emp_no=s.emp_no;
 -- List first name, last name, and hire date for employees who were hired in 1986
 SELECT first_name, last_name, hire_date FROM "Employees" WHERE hire_date >= '19860101' AND hire_date < '19870101' ORDER BY hire_date;
 
--- NEED TO FIX List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name
-SELECT d.dept_no, d.dept_name, n.emp_no, e.first_name, e_last_name
+-- List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name
+SELECT d.dept_no, d.dept_name, n.emp_no, e.last_name, e.first_name
 FROM "Departments" AS d
-FROM "Employees" AS e
-INNER JOIN "Dept_Manager" AS n ON
-n.emp_no=e.emp_no;
+LEFT JOIN "Dept_Manager" AS n
+ON n.dept_no = d.dept_no
+LEFT JOIN "Employees" AS e
+ON n.emp_no = e.emp_no;
 
 -- List first name, last name, and sex for employees whose first name is "Hercules" and last names begin with "B."
 SELECT first_name, last_name, sex FROM "Employees" WHERE first_name = 'Hercules' AND last_name LIKE 'B%';
 
 -- NEED TO FIX List all employees in the Sales department, including their employee number, last name, first name, and department name
-SELECT * FROM "Dept_Manager"
-
 CREATE VIEW SalesView AS
-SELECT FROM Departments.dept_no, Departments.dept_name, Dept_Emp.dept_no, Dept_Emp.emp_no 
-WHERE Departments.dept_no = Dept_Emp.dept_no
+SELECT d.dept_name, e.dept_no, e.emp_no, s.last_name, s.first_name
+FROM "Departments" as d
+LEFT JOIN "Dept_Emp" as e
+ON e.dept_no = d.dept_no
+LEFT JOIN "Employees" as s
+ON s.emp_no = e.emp_no;
+
+SELECT * FROM SalesView WHERE dept_name = 'Sales';
 
 -- NEED TO DO List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name
 
